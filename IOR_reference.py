@@ -28,7 +28,7 @@ from bpy.props import (StringProperty, FloatProperty,
 bl_info = {
     'name': 'IOR Reference Fork Emmanuel',
     'description': 'Adds a panel with a searchable list of IOR values',
-    'author': 'Diego Gangl, Emmanuel Byer',
+    'author': 'Diego Gangl, Emmanuel Boyer',
     'version': (1, 0, 1),
     'blender': (2, 75, 0),
     'location': 'Nodes',
