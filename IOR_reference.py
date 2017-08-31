@@ -2,6 +2,7 @@
 #
 #   Copyright (C) 2017 Diego Gangl
 #   <diego@sinestesia.co>
+#
 #   Copyright (C) 2017 Emmanuel Boyer
 #
 #
