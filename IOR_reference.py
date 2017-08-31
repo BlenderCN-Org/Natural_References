@@ -25,18 +25,17 @@ import bpy
 from bpy.props import (StringProperty, FloatProperty,
                        IntProperty, CollectionProperty)
 
-
 bl_info = {
     'name': 'IOR Reference Fork Emmanuel',
     'description': 'Adds a panel with a searchable list of IOR values',
     'author': 'Diego Gangl, Emmanuel Byer',
-    'version': (1, 0, 0),
+    'version': (1, 0, 1),
     'blender': (2, 75, 0),
     'location': 'Nodes',
     'warning': '',
     'wiki_url': '',
     'category': 'Material'
-    }
+}
 
 
 # -----------------------------------------------------------------------------
@@ -44,10 +43,9 @@ bl_info = {
 # -----------------------------------------------------------------------------
 
 class IORREF_PROP_Value(bpy.types.PropertyGroup):
-
     name = StringProperty(
-           name='Name',
-           description='Material name')
+        name='Name',
+        description='Material name')
 
     value = FloatProperty(
         name='IOR Value',
@@ -69,7 +67,10 @@ def build_IOR_list():
         ('Actinolite', 1.618),
         ('Agate', 1.544),
         ('Agate, Moss', 1.540),
-        ('Air', 1.0002926),
+        ('Air 20°', 1.000377),
+        ('Air 45°', 1.0003402),
+        ('Air 20°', 1.000272),
+        ('Air 0°', 1.0002926),
         ('Alcohol', 1.329),
         ('Alexandrite', 1.745),
         ('Aluminum', 1.44),
@@ -422,7 +423,6 @@ class IORREF_OT_AddNode(bpy.types.Operator):
 class IORREF_UIL_List(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon,
                   active_data, active_propname):
-
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
             split = layout.split(0.75)
             split.label(text=item.name, translate=False)
@@ -455,7 +455,6 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
 # -----------------------------------------------------------------------------
 
 def register():
-
     bpy.utils.register_class(IORREF_PROP_Value)
     bpy.utils.register_class(IORREF_OT_AddNode)
 
@@ -471,7 +470,6 @@ def register():
 
 
 def unregister():
-
     wm = bpy.types.WindowManager
 
     del wm.IORRef
