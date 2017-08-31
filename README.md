@@ -1,6 +1,6 @@
 # IOR Reference Addon
 
-![](screen.png)
+![](screenIOR.png)
 
 IOR Reference is an addon for Blender that adds a list of common IOR values for
 materials in the nodes editor. It also includes a button to insert a value node
@@ -18,7 +18,7 @@ addon tab in preferences.
 
 # Natural Reference Addon
 
-![](screen.png)
+![](screenBB.png)
 
 Natural Reference is an addon for Blender that adds a list of common Blackbody values for
 lights materials in the nodes editor. It also includes a button to insert a Blackbody node
