@@ -27,9 +27,9 @@ from bpy.props import (StringProperty, FloatProperty,
 
 
 bl_info = {
-    'name': 'IOR Reference',
+    'name': 'IOR Reference Fork Emmanuel',
     'description': 'Adds a panel with a searchable list of IOR values',
-    'author': 'Diego Gangl',
+    'author': 'Diego Gangl, Emmanuel Byer',
     'version': (1, 0, 0),
     'blender': (2, 75, 0),
     'location': 'Nodes',
@@ -69,7 +69,10 @@ def build_IOR_list():
         ('Actinolite', 1.618),
         ('Agate', 1.544),
         ('Agate, Moss', 1.540),
-        ('Air', 1.0002926),
+        ('Air 20°', 1.000377),
+        ('Air 45°', 1.0003402),
+        ('Air 20°', 1.000272),
+        ('Air 0°', 1.0002926),
         ('Alcohol', 1.329),
         ('Alexandrite', 1.745),
         ('Aluminum', 1.44),
