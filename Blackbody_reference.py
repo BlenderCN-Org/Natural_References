@@ -45,7 +45,7 @@ bl_info = {
 # VALUES
 # -----------------------------------------------------------------------------
 
-class BBODYREF_PROP_Value(bpy.types.PropertyGroup):
+class Blackbodyref_PROP_Value(bpy.types.PropertyGroup):
     name = StringProperty(
         name='Name',
         description='Material name')
@@ -60,7 +60,7 @@ def build_blackbody_list():
     """ Fill the list with BlackBody values """
 
     def add(val):
-        item = bpy.context.window_manager.BBODYREF.add()
+        item = bpy.context.window_manager.Blackbodyref.add()
         item.name = val[0]
         item.value = val[1]
 
@@ -90,8 +90,8 @@ def build_blackbody_list():
 # OPERATOR
 # -----------------------------------------------------------------------------
 
-class BBODYREF_OT_AddNode(bpy.types.Operator):
-    bl_idname = 'BBODYREF.add_value_node'
+class Blackbodyref_OT_AddNode(bpy.types.Operator):
+    bl_idname = 'Blackbodyref.add_value_node'
     bl_label = 'Add value as node'
     bl_description = 'Add BlackBody as a value node'
     bl_options = {'REGISTER', 'UNDO'}
@@ -106,7 +106,7 @@ class BBODYREF_OT_AddNode(bpy.types.Operator):
     def execute(self, context):
 
         wm = context.window_manager
-        item = wm.BBODYREF[wm.BBODYREF_index]
+        item = wm.Blackbodyref[wm.Blackbodyref_index]
 
         nodes = context.active_object.active_material.node_tree.nodes
         node = nodes.new('ShaderNodeValue')
@@ -121,7 +121,7 @@ class BBODYREF_OT_AddNode(bpy.types.Operator):
 # -----------------------------------------------------------------------------
 
 
-class BBODYREF_UIL_List(bpy.types.UIList):
+class Blackbodyref_UIL_List(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon,
                   active_data, active_propname):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
@@ -130,9 +130,9 @@ class BBODYREF_UIL_List(bpy.types.UIList):
             split.label(text='{:.3f}'.format(item.value), translate=False)
 
 
-class BBODYREF_PT_MainPanel(bpy.types.Panel):
+class Blackbodyref_PT_MainPanel(bpy.types.Panel):
     bl_label = "BlackBody Reference"
-    bl_idname = "BBODYREF_PT_MainPanel"
+    bl_idname = "Blackbodyref_PT_MainPanel"
     bl_space_type = 'NODE_EDITOR'
     bl_region_type = 'UI'
 
@@ -145,10 +145,10 @@ class BBODYREF_PT_MainPanel(bpy.types.Panel):
         layout = self.layout
         wm = context.window_manager
 
-        layout.template_list('BBODYREF_UIL_List', '', wm,
-                             'BBODYREF', wm, 'BBODYREF_index')
+        layout.template_list('Blackbodyref_UIL_List', '', wm,
+                             'Blackbodyref', wm, 'Blackbodyref_index')
 
-        layout.operator('BBODYREF.add_value_node')
+        layout.operator('Blackbodyref.add_value_node')
 
 
 # -----------------------------------------------------------------------------
@@ -156,30 +156,30 @@ class BBODYREF_PT_MainPanel(bpy.types.Panel):
 # -----------------------------------------------------------------------------
 
 def register():
-    bpy.utils.register_class(BBODYREF_PROP_Value)
-    bpy.utils.register_class(BBODYREF_OT_AddNode)
+    bpy.utils.register_class(Blackbodyref_PROP_Value)
+    bpy.utils.register_class(Blackbodyref_OT_AddNode)
 
     wm = bpy.types.WindowManager
-    wm.BBODYREF = CollectionProperty(type=BBODYREF_PROP_Value)
-    wm.BBODYREF_index = IntProperty(name='BlackBody Reference Index', default=0)
+    wm.Blackbodyref = CollectionProperty(type=Blackbodyref_PROP_Value)
+    wm.Blackbodyref_index = IntProperty(name='BlackBody Reference Index', default=0)
 
-    if len(bpy.context.window_manager.BBODYREF) == 0:
+    if len(bpy.context.window_manager.Blackbodyref) == 0:
         build_blackbody_list()
 
-    bpy.utils.register_class(BBODYREF_UIL_List)
-    bpy.utils.register_class(BBODYREF_PT_MainPanel)
+    bpy.utils.register_class(Blackbodyref_UIL_List)
+    bpy.utils.register_class(Blackbodyref_PT_MainPanel)
 
 
 def unregister():
     wm = bpy.types.WindowManager
 
-    del wm.BBODYREF
-    del wm.BBODYREF_index
+    del wm.Blackbodyref
+    del wm.Blackbodyref_index
 
-    bpy.utils.unregister_class(BBODYREF_UIL_List)
-    bpy.utils.unregister_class(BBODYREF_PT_MainPanel)
-    bpy.utils.unregister_class(BBODYREF_PROP_Value)
-    bpy.utils.unregister_class(BBODYREF_OT_AddNode)
+    bpy.utils.unregister_class(Blackbodyref_UIL_List)
+    bpy.utils.unregister_class(Blackbodyref_PT_MainPanel)
+    bpy.utils.unregister_class(Blackbodyref_PROP_Value)
+    bpy.utils.unregister_class(Blackbodyref_OT_AddNode)
 
 
 if __name__ == "__main__":
