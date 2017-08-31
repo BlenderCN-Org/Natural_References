@@ -2,6 +2,8 @@
 #
 #   Copyright (C) 2017 Diego Gangl
 #   <diego@sinestesia.co>
+#   Copyright (C) 2017 Emmanuel Boyer
+#
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License
@@ -29,7 +31,7 @@ bl_info = {
     'name': 'IOR Reference Fork Emmanuel',
     'description': 'Adds a panel with a searchable list of IOR values',
     'author': 'Diego Gangl, Emmanuel Boyer',
-    'version': (1, 0, 1),
+    'version': (1, 0, 0),
     'blender': (2, 75, 0),
     'location': 'Nodes',
     'warning': '',
