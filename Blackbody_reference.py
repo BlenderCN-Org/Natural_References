@@ -22,7 +22,7 @@
 #
 # ## END GPL LICENSE BLOCK ##
 
-""" IOR Reference Addon """
+""" BlackBody Reference Addon """
 
 import bpy
 from bpy.props import (StringProperty, FloatProperty,
@@ -45,7 +45,7 @@ bl_info = {
 # VALUES
 # -----------------------------------------------------------------------------
 
-class IORREF_PROP_Value(bpy.types.PropertyGroup):
+class BBREF_PROP_Value(bpy.types.PropertyGroup):
     name = StringProperty(
         name='Name',
         description='Material name')
@@ -53,18 +53,18 @@ class IORREF_PROP_Value(bpy.types.PropertyGroup):
     value = FloatProperty(
         name='IOR Value',
         precision=5,
-        description='The IOR value for the selected item')
+        description='The Blackbody value for the selected item')
 
 
 def build_BlackbodyRef_list():
-    """ Fill the list with IOR values """
+    """ Fill the list with Blackbody values """
 
     def add(val):
-        item = bpy.context.window_manager.IORRef.add()
+        item = bpy.context.window_manager.BBRef.add()
         item.name = val[0]
         item.value = val[1]
 
-    # BEGIN List of IOR values
+    # BEGIN List of Blackbody values
     BlackbodyRef_list = [
         ('Match Flame', 1700),
         ('Candel Flame', 1850),
@@ -81,7 +81,7 @@ def build_BlackbodyRef_list():
         ('Vertical Daylight', 5500),
         ('Electronic Flash', 6000),
         ('Clear Blue Sky', 15000)]
-    # END List of IOR values
+    # END List of Blackbody values
 
     [add(val) for val in BlackbodyRef_list]
 
@@ -90,10 +90,10 @@ def build_BlackbodyRef_list():
 # OPERATOR
 # -----------------------------------------------------------------------------
 
-class IORREF_OT_AddNode(bpy.types.Operator):
-    bl_idname = 'iorref.add_value_node'
+class BBREF_OT_AddNode(bpy.types.Operator):
+    bl_idname = 'bbref.add_value_node'
     bl_label = 'Add value as node'
-    bl_description = 'Add IOR as a value node'
+    bl_description = 'Add Blackbody as a value node'
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -106,7 +106,7 @@ class IORREF_OT_AddNode(bpy.types.Operator):
     def execute(self, context):
 
         wm = context.window_manager
-        item = wm.IORRef[wm.IORRef_index]
+        item = wm.BBRef[wm.BBRef_index]
 
         nodes = context.active_object.active_material.node_tree.nodes
         node = nodes.new('ShaderNodeBlackbody')
@@ -123,7 +123,7 @@ class IORREF_OT_AddNode(bpy.types.Operator):
 # -----------------------------------------------------------------------------
 
 
-class IORREF_UIL_List(bpy.types.UIList):
+class BBREF_UIL_List(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon,
                   active_data, active_propname):
         if self.layout_type in {'DEFAULT', 'COMPACT'}:
@@ -132,9 +132,9 @@ class IORREF_UIL_List(bpy.types.UIList):
             split.label(text='{:.3f}'.format(item.value), translate=False)
 
 
-class IORREF_PT_MainPanel(bpy.types.Panel):
+class BBREF_PT_MainPanel(bpy.types.Panel):
     bl_label = "Blackbody Reference"
-    bl_idname = "IORREF_PT_MainPanel"
+    bl_idname = "BBREF_PT_MainPanel"
     bl_space_type = 'NODE_EDITOR'
     bl_region_type = 'UI'
 
@@ -147,10 +147,10 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
         layout = self.layout
         wm = context.window_manager
 
-        layout.template_list('IORREF_UIL_List', '', wm,
-                             'IORRef', wm, 'IORRef_index')
+        layout.template_list('BBREF_UIL_List', '', wm,
+                             'BBRef', wm, 'BBRef_index')
 
-        layout.operator('iorref.add_value_node')
+        layout.operator('bbref.add_value_node')
 
 
 # -----------------------------------------------------------------------------
@@ -158,30 +158,30 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
 # -----------------------------------------------------------------------------
 
 def register():
-    bpy.utils.register_class(IORREF_PROP_Value)
-    bpy.utils.register_class(IORREF_OT_AddNode)
+    bpy.utils.register_class(BBREF_PROP_Value)
+    bpy.utils.register_class(BBREF_OT_AddNode)
 
     wm = bpy.types.WindowManager
-    wm.IORRef = CollectionProperty(type=IORREF_PROP_Value)
-    wm.IORRef_index = IntProperty(name='IOR Reference Index', default=0)
+    wm.BBRef = CollectionProperty(type=BBREF_PROP_Value)
+    wm.BBRef_index = IntProperty(name='IOR Reference Index', default=0)
 
-    if len(bpy.context.window_manager.IORRef) == 0:
+    if len(bpy.context.window_manager.BBRef) == 0:
         build_BlackbodyRef_list()
 
-    bpy.utils.register_class(IORREF_UIL_List)
-    bpy.utils.register_class(IORREF_PT_MainPanel)
+    bpy.utils.register_class(BBREF_UIL_List)
+    bpy.utils.register_class(BBREF_PT_MainPanel)
 
 
 def unregister():
     wm = bpy.types.WindowManager
 
-    del wm.IORRef
-    del wm.IORRef_index
+    del wm.BBRef
+    del wm.BBRef_index
 
-    bpy.utils.unregister_class(IORREF_UIL_List)
-    bpy.utils.unregister_class(IORREF_PT_MainPanel)
-    bpy.utils.unregister_class(IORREF_PROP_Value)
-    bpy.utils.unregister_class(IORREF_OT_AddNode)
+    bpy.utils.unregister_class(BBREF_UIL_List)
+    bpy.utils.unregister_class(BBREF_PT_MainPanel)
+    bpy.utils.unregister_class(BBREF_PROP_Value)
+    bpy.utils.unregister_class(BBREF_OT_AddNode)
 
 
 if __name__ == "__main__":
